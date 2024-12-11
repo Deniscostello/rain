@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,11 @@ public class SensorController {
 
     //return all sensors in db
     @GetMapping("/queryAllSensor")
-    public List<Sensor> queryAllSensor() {
-        return sensorService.findAllSensors();
+    public ResponseEntity<Map<String, List<Sensor>>> queryAllSensor() {
+        List<Sensor> sensorsList = sensorService.findAllSensors();
+        Map<String, List<Sensor>> response = new HashMap<>();
+        response.put("sensors", sensorsList);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
