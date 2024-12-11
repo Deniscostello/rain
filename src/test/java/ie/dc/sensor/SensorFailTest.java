@@ -24,6 +24,12 @@ public class SensorFailTest {
         assertEquals("Sensor ID must be between 3 and 10 characters", exMessage.getMessage());
     }
 
+    @Test
+    void testMetricTypeFailure() {
+        Exception exMessage = assertThrows(IllegalArgumentException.class, () -> new Sensor("1","sensor", "temp", 19.20, LocalDateTime.now()));
+        assertEquals("Please enter 'Temperature', 'Humidity', or 'Wind_Speed'", exMessage.getMessage());
+    }
+
 
 
 
