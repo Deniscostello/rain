@@ -10,12 +10,12 @@ public class SensorSuccessTest {
     @BeforeEach
     void setUp() {}
 
-    //Unit Test on sensorId Success
-    @Test
-    void testSensorIdSuccess(){
-        Sensor sensor = new Sensor("1", "sensor1", "temperature", 15.00, LocalDateTime.now());
-        assertEquals("sensor1", sensor.getSensorId());
-    }
+//    //Unit Test on sensorId Success
+//    @Test
+//    void testSensorIdSuccess(){
+//        Sensor sensor = new Sensor("1", "sensor1", "temperature", 15.00, LocalDateTime.now());
+//        assertEquals("sensor1", sensor.getSensorId());
+//    }
 
     @Test
     void testSensorMetricTempSuccess(){

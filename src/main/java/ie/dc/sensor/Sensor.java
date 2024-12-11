@@ -1,8 +1,11 @@
 package ie.dc.sensor;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.time.LocalDateTime;
 
@@ -16,6 +19,7 @@ public class Sensor {
     @Id
     private String id;
 
+    @Size(min=3, max =10, message = "Sensor ID must be between 3 and 10 characters")
     private String sensorId;
     private String metricType;
     private double value;
@@ -42,15 +46,12 @@ public class Sensor {
         return sensorId;
     }
 
+
     public void setSensorId(String sensorId) {
-        if(sensorId.length() >=3 && sensorId.length() <= 10) {
             this.sensorId = sensorId;
-        }
-        else{
-            throw new IllegalArgumentException("Sensor ID must be between 3 and 10 characters");
-        }
 
     }
+
 
     public String getMetricType() {
         return metricType;
