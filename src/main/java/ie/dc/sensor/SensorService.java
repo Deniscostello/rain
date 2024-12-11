@@ -71,7 +71,6 @@ public class SensorService {
             case "min" -> stats.getMin();
             case "max" -> stats.getMax();
             case "sum" -> stats.getSum();
-            case "count" -> (double) stats.getCount();
             default -> stats.getAverage();
         };
     }
