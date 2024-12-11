@@ -1,5 +1,7 @@
 package ie.dc.sensor;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,21 +23,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(SensorController.class)
 public class SensorControllerTest {
+
+    @BeforeEach
+    void setUp() {}
+
+    //Inject MockMvc
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
     private SensorService sensorService;
 
-
+    //Test for querying all sensors by sensor Id
     @Test
     void allSensors() throws Exception {
         List<Sensor> testSensors = List.of(
                 new Sensor("123","sensor3", "temperature", 14.5, LocalDateTime.now()),
                 new Sensor("321","sensor11", "temperature", 15.5, LocalDateTime.now())
         );
+        // Mock the Sensorservice  getSensorBySensorId method
         when(sensorService.getSensorBySensorID(anyList())).thenReturn(testSensors);
 
+        //Using Mock Mvc to perform get request
         mockMvc.perform(get("/api/querySensorsById")
                 .param("sensorId", "sensor3","sensor11")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -73,6 +82,9 @@ public class SensorControllerTest {
                 .andExpect(jsonPath("$.Sensors[0].sensorId").value("sensor1"))
                 .andExpect(jsonPath("$.Sensors[1].sensorId").value("sensor2"));
     }
+
+    @AfterEach
+    void tearDown() {}
 
 
 }

@@ -1,5 +1,6 @@
 package ie.dc.sensor;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,8 +31,6 @@ public class SensorFailTest {
         assertEquals("Please enter 'Temperature', 'Humidity', or 'Wind_Speed'", exMessage.getMessage());
     }
 
-
-
-
-
+    @AfterEach
+    void tearDown() {}
 }
