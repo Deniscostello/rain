@@ -12,4 +12,6 @@ public interface SensorRepo extends MongoRepository<Sensor, String> {
     List<Sensor> findBySensorIdIn(List<String> sensorId);
 
     List<Sensor> findBySavedDateBetween(LocalDateTime savedDateAfter, LocalDateTime savedDateBefore);
+
+    List<Sensor> findBySensorIdInAndSavedDateBetween(List<String> sensorId, LocalDateTime start, LocalDateTime end);
 }

@@ -30,4 +30,8 @@ public class SensorService {
     public List<Sensor> findSensorsBetweenDates(LocalDateTime start, LocalDateTime end) {
         return sensorRepo.findBySavedDateBetween(start, end);
     }
+
+    public List<Sensor> getSensorStartAndEnd(List<String> sensorId, LocalDateTime start, LocalDateTime end) {
+        return sensorRepo.findBySensorIdInAndSavedDateBetween(sensorId,start,end);
+    }
 }

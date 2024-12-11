@@ -8,6 +8,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyList;
@@ -25,6 +26,7 @@ public class SensorControllerTest {
 
     @MockitoBean
     private SensorService sensorService;
+
 
     @Test
     void allSensors() throws Exception {
@@ -45,4 +47,32 @@ public class SensorControllerTest {
 
         verify(sensorService, times(1)).getSensorBySensorID(anyList());
     }
+
+    @Test
+    public void testSensorWithDates() throws Exception {
+        List<Sensor> testSensors = List.of(
+                new Sensor("123","sensor1", "temperature", 14.5, LocalDateTime.now()),
+                new Sensor("321","sensor2", "humidity", 30.5, LocalDateTime.now().minusWeeks(1)));
+
+        List<String> sensorIds = List.of("sensor1", "sensor2");
+
+        String startDate = LocalDateTime.now().minusWeeks(1).format(DateTimeFormatter.ISO_DATE_TIME);
+        String endDate = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        LocalDateTime start = LocalDateTime.parse(startDate, formatter);
+        LocalDateTime end = LocalDateTime.parse(endDate, formatter);
+
+        when(sensorService.getSensorStartAndEnd(sensorIds, start, end))
+                .thenReturn(testSensors);
+
+        mockMvc.perform(get("/api/querySensorWithDates")
+                .param("sensorId", "sensor1", "sensor2").param("startDate", startDate).param("endDate", endDate)
+        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.Sensors[0].sensorId").value("sensor1"))
+                .andExpect(jsonPath("$.Sensors[1].sensorId").value("sensor2"));
+    }
+
+
 }

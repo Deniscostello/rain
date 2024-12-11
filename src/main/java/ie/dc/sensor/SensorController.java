@@ -61,8 +61,34 @@ public class SensorController {
 
         List<Sensor> sensorsList = sensorService.findSensorsBetweenDates(start, end);
         Map<String, List<Sensor>> response = new HashMap<>();
-        response.put("Sensors found between: " + startDate + " and " + endDate, sensorsList);
+        response.put("Sensors", sensorsList);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/querySensorWithDates")
+    public ResponseEntity<Map<String, List<Sensor>>> querySensorWithDates(
+            @RequestParam List<String> sensorId,
+            @RequestParam(required = false)  String startDate,
+            @RequestParam(required = false)  String endDate
+    ){
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
+        //If no dates are included in query set date period to the past 24 hours (latest data)
+        LocalDateTime start = (startDate !=null) ?
+                LocalDateTime.parse(startDate, formatter)
+                : LocalDateTime.now().minusDays(1);
+
+        LocalDateTime end = (endDate !=null) ?
+            LocalDateTime.parse(endDate, formatter)
+                : LocalDateTime.now();
+
+
+        List<Sensor> sensorsList = sensorService.getSensorStartAndEnd(sensorId, start,end);
+        Map<String, List<Sensor>> response = new HashMap<>();
+        response.put("Sensors", sensorsList);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
 
