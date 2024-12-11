@@ -17,6 +17,12 @@ public class SensorSuccessTest {
         assertEquals("sensor1", sensor.getSensorId());
     }
 
+    @Test
+    void testSensorMetricTypeSuccess(){
+        Sensor sensor = new Sensor("1", "sensor1", "temperature", 15.00, LocalDateTime.now());
+        assertEquals("temperature", sensor.getMetricType());
+    }
+
 
     @AfterEach
     void tearDown() {}

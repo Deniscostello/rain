@@ -55,7 +55,12 @@ public class Sensor {
     }
 
     public void setMetricType(String metricType) {
-        this.metricType = metricType;
+        if("temperature".equalsIgnoreCase(metricType) || "humidity".equalsIgnoreCase(metricType) || "wind_speed".equalsIgnoreCase(metricType)) {
+            this.metricType = metricType;
+        }
+        else{
+            throw new IllegalArgumentException("Please enter 'Temperature', 'Humidity', or 'Wind_Speed'");
+        }
     }
 
     public double getValue() {
