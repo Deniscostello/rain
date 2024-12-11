@@ -38,7 +38,7 @@ public class SensorController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/querySensors")
+    @GetMapping("/querySensorsById")
     public ResponseEntity<Map<String, List<Sensor>>> queryAllSensors(
             @RequestParam List<String> sensorId) {
         List<Sensor> sensorsFound = sensorService.getSensorBySensorID(sensorId);
