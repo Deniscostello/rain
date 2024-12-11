@@ -2,10 +2,12 @@ package ie.dc.sensor;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SensorService {
 
-    private SensorRepo sensorRepo;
+    private final SensorRepo sensorRepo;
 
     public SensorService(SensorRepo sensorRepo) {
         this.sensorRepo = sensorRepo;
@@ -14,5 +16,9 @@ public class SensorService {
     public void saveSensor(Sensor sensor) {
         sensorRepo.save(sensor);
 
+    }
+
+    public List<Sensor> findAllSensors() {
+        return sensorRepo.findAll();
     }
 }

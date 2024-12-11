@@ -3,19 +3,18 @@ package ie.dc.sensor;
 import jakarta.validation.Valid;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class SensorController {
-    private SensorService sensorService;
+    private final SensorService sensorService;
 
     public SensorController(SensorService sensorService) {
         this.sensorService = sensorService;
@@ -29,6 +28,13 @@ public class SensorController {
         return sensor;
     }
 
+    //return all sensors in db
+    @GetMapping("/queryAllSensor")
+    public List<Sensor> queryAllSensor() {
+        return sensorService.findAllSensors();
+    }
+
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -40,6 +46,5 @@ public class SensorController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
-
     }
 }
