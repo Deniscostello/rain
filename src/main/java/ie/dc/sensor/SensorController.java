@@ -34,7 +34,16 @@ public class SensorController {
     public ResponseEntity<Map<String, List<Sensor>>> queryAllSensor() {
         List<Sensor> sensorsList = sensorService.findAllSensors();
         Map<String, List<Sensor>> response = new HashMap<>();
-        response.put("sensors", sensorsList);
+        response.put("All sensors", sensorsList);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/querySensors")
+    public ResponseEntity<Map<String, List<Sensor>>> queryAllSensors(
+            @RequestParam List<String> sensorId) {
+        List<Sensor> sensorsFound = sensorService.getSensorBySensorID(sensorId);
+        Map<String, List<Sensor>> response = new HashMap<>();
+        response.put("Sensors found: ", sensorsFound);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

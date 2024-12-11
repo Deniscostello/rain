@@ -21,4 +21,8 @@ public class SensorService {
     public List<Sensor> findAllSensors() {
         return sensorRepo.findAll();
     }
+
+    public List<Sensor> getSensorBySensorID(List<String> sensorId) {
+        return sensorRepo.findBySensorIdIn(sensorId);
+    }
 }
