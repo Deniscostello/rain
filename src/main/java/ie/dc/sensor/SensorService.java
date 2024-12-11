@@ -2,6 +2,7 @@ package ie.dc.sensor;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,5 +25,9 @@ public class SensorService {
 
     public List<Sensor> getSensorBySensorID(List<String> sensorId) {
         return sensorRepo.findBySensorIdIn(sensorId);
+    }
+
+    public List<Sensor> findSensorsBetweenDates(LocalDateTime start, LocalDateTime end) {
+        return sensorRepo.findBySavedDateBetween(start, end);
     }
 }
