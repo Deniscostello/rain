@@ -1,6 +1,7 @@
 package ie.dc.sensor;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -21,6 +22,8 @@ public class Sensor {
 
     @Size(min=3, max =10, message = "Sensor ID must be between 3 and 10 characters")
     private String sensorId;
+
+    @NotBlank(message="Metric cannot be blank")
     private String metricType;
     private double value;
     private LocalDateTime savedDate;
