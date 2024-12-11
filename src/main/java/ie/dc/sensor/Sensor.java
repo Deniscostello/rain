@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document("sensors")
 @Data
 @NoArgsConstructor
 @Getter
@@ -43,7 +42,13 @@ public class Sensor {
     }
 
     public void setSensorId(String sensorId) {
-        this.sensorId = sensorId;
+        if(sensorId.length() >=3 && sensorId.length() <= 10) {
+            this.sensorId = sensorId;
+        }
+        else{
+            throw new IllegalArgumentException("Sensor ID must be between 3 and 10 characters");
+        }
+
     }
 
     public String getMetricType() {
