@@ -18,10 +18,24 @@ public class SensorSuccessTest {
     }
 
     @Test
-    void testSensorMetricTypeSuccess(){
+    void testSensorMetricTempSuccess(){
         Sensor sensor = new Sensor("1", "sensor1", "temperature", 15.00, LocalDateTime.now());
         assertEquals("temperature", sensor.getMetricType());
     }
+
+    @Test
+    void testSensorMetricHumSuccess(){
+        Sensor sensor = new Sensor("1", "sensor1", "humidity", 15.00, LocalDateTime.now());
+        assertEquals("humidity", sensor.getMetricType());
+    }
+
+    @Test
+    void testSensorMetricWSSuccess(){
+        Sensor sensor = new Sensor("1", "sensor1", "wind_speed", 15.00, LocalDateTime.now());
+        assertEquals("wind_speed", sensor.getMetricType());
+    }
+
+
 
 
     @AfterEach
